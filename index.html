@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Scrolling Gallery</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+
+    <!-- HEADER: logo left, tick bar centre, about right -->
+    <header>
+      <div class="logo">Interactive Media AT3</div>
+      <div class="tick-bar" id="tickBar" aria-hidden="true"></div>
+      <nav><a href="#" class="nav-link">About</a></nav>
+    </header>
+
+    <!-- CAROUSEL: absolutely centred in viewport -->
+    <div class="stage">
+      <div class="slices" id="slices">
+        <div
+          class="slice"
+          data-label="Yarra Valley VIC"
+          style="
+            background-image: url(&quot;https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=900&q=80&quot;);
+          "
+        ></div>
+        <div
+          class="slice"
+          data-label="Byron Bay NSW"
+          style="
+            background-image: url(&quot;https://images.unsplash.com/photo-1486325212027-8081e485255e?w=900&q=80&quot;);
+          "
+        ></div>
+        <div
+          class="slice"
+          data-label="Brisbane QLD"
+          style="
+            background-image: url(&quot;https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=900&q=80&quot;);
+          "
+        ></div>
+        <div
+          class="slice"
+          data-label="Dark"
+          style="
+            background-image: url(&quot;https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?w=900&q=80&quot;);
+          "
+        ></div>
+        <div
+          class="slice"
+          data-label="Texture"
+          style="
+            background-image: url(&quot;https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80&quot;);
+          "
+        ></div>
+        <div
+          class="slice"
+          data-label="Portrait"
+          style="
+            background-image: url(&quot;https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=900&q=80&quot;);
+          "
+        ></div>
+        <div
+          class="slice"
+          data-label="Objects"
+          style="
+            background-image: url(&quot;https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=900&q=80&quot;);
+          "
+        ></div>
+        <div
+          class="slice"
+          data-label="Mobile"
+          style="
+            background-image: url(&quot;https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=900&q=80&quot;);
+          "
+        ></div>
+        <div
+          class="slice"
+          data-label="Product"
+          style="
+            background-image: url(&quot;https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=900&q=80&quot;);
+          "
+        ></div>
+        <div
+          class="slice"
+          data-label="Landscape"
+          style="
+            background-image: url(&quot;https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&q=80&quot;);
+          "
+        ></div>
+        <div
+          class="slice"
+          data-label="Abstract"
+          style="
+            background-image: url(&quot;https://images.unsplash.com/photo-1545670723-196ed0954986?w=900&q=80&quot;);
+          "
+        ></div>
+        <div
+          class="slice"
+          data-label="Space"
+          style="
+            background-image: url(&quot;https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=900&q=80&quot;);
+          "
+        ></div>
+        <div
+          class="slice"
+          data-label="Urban"
+          style="
+            background-image: url(&quot;https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=900&q=80&quot;);
+          "
+        ></div>
+        <div
+          class="slice"
+          data-label="Fashion"
+          style="
+            background-image: url(&quot;https://images.unsplash.com/photo-1509631179647-0177331693ae?w=900&q=80&quot;);
+          "
+        ></div>
+        <div
+          class="slice"
+          data-label="Motion"
+          style="
+            background-image: url(&quot;https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?w=900&q=80&quot;);
+          "
+        ></div>
+        <div
+          class="slice"
+          data-label="Light"
+          style="
+            background-image: url(&quot;https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=900&q=80&quot;);
+          "
+        ></div>
+        <div
+          class="slice"
+          data-label="Studio"
+          style="
+            background-image: url(&quot;https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=900&q=80&quot;);
+          "
+        ></div>
+        <div
+          class="slice"
+          data-label="Minimal"
+          style="
+            background-image: url(&quot;https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&q=80&quot;);
+          "
+        ></div>
+      </div>
+    </div>
+
+    <!-- FOOTER: bottom-left info, bottom-right links -->
+    <footer>
+      <div class="footer-left">
+        <p>S4130666</p>
+        <p>Lachlan Miles</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
