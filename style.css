@@ -273,6 +273,40 @@ footer {
 }
 
 /* ============================================================
+   PROJECT DESCRIPTION BAR
+   Appears below the carousel on hover. Fixed position means
+   it doesn't shift the layout when it fades in — important
+   for a single-viewport design where any reflow would be
+   jarring. The description sits just below the strip's bottom
+   edge (calc centres it relative to the stage midpoint).
+============================================================ */
+#project-description {
+  position: fixed;
+  bottom: calc(var(--footer-h) + 100px);
+  left: 0;
+  right: 0;
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  color: rgba(232, 230, 225, 0.55);
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+  pointer-events: none;
+  z-index: 50;
+}
+
+#project-description.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
    LIGHTBOX
    Full-viewport overlay triggered by clicking "About".
    Two layers: a semi-transparent backdrop (blur + dark tint)

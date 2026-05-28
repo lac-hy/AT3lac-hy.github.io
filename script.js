@@ -118,6 +118,28 @@ document.querySelectorAll(".slice[data-label-color]").forEach((slice) => {
 });
 
 // ============================================================
+// PROJECT DESCRIPTIONS
+// A single shared div is reused for all slice descriptions —
+// swapping its text content on each mouseenter is cheaper than
+// creating/destroying elements on every hover.
+// The description fades in below the strip and fades out when
+// the mouse leaves, giving context without cluttering the UI.
+// ============================================================
+const descEl = document.createElement("div");
+descEl.id = "project-description";
+document.body.appendChild(descEl);
+
+document.querySelectorAll(".slice[data-description]").forEach((slice) => {
+  slice.addEventListener("mouseenter", () => {
+    descEl.textContent = slice.dataset.description;
+    descEl.classList.add("visible");
+  });
+  slice.addEventListener("mouseleave", () => {
+    descEl.classList.remove("visible");
+  });
+});
+
+// ============================================================
 // IMAGE PRELOAD
 // Preloads background images before first hover to prevent
 // a flash-of-no-image during the expand transition.
