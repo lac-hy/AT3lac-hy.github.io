@@ -109,6 +109,14 @@ window.addEventListener("resize", () => {
   targetX = 0;
 });
 
+// Apply custom label colours from data-label-color attribute.
+// Uses a CSS custom property on each slice element so the
+// ::after pseudo-element can inherit it without JS touching
+// the pseudo-element directly (which isn't possible).
+document.querySelectorAll(".slice[data-label-color]").forEach((slice) => {
+  slice.style.setProperty("--label-color", slice.dataset.labelColor);
+});
+
 // ============================================================
 // IMAGE PRELOAD
 // Preloads background images before first hover to prevent
