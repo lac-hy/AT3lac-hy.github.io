@@ -1,8 +1,8 @@
 // ============================================================
 // CUSTOM CURSOR
-// Dot snaps to exact mouse position. Ring lerps toward dot
-// each frame — the lag (factor 0.1) gives a weighted,
-// physical feel. Lower = more lag, higher = snappier.
+// Dot snaps to exact mouse position every frame.
+// Ring lerps toward dot at factor 0.1 — creates a weighted
+// lag that feels physical and intentional.
 // ============================================================
 const dot = document.getElementById("cursor-dot");
 const ring = document.getElementById("cursor-ring");
@@ -29,40 +29,66 @@ function lerp(a, b, t) {
   requestAnimationFrame(animateRing);
 })();
 
-// Expand ring on interactive elements
-document.querySelectorAll(".slice, a, .logo").forEach((el) => {
-  el.addEventListener("mouseenter", () => ring.classList.add("expanded"));
-  el.addEventListener("mouseleave", () => ring.classList.remove("expanded"));
+function addHoverExpand(selector) {
+  document.querySelectorAll(selector).forEach((el) => {
+    el.addEventListener("mouseenter", () => ring.classList.add("expanded"));
+    el.addEventListener("mouseleave", () => ring.classList.remove("expanded"));
+  });
+}
+addHoverExpand(".slice, a, .logo, .lightbox-close");
+
+// ============================================================
+// ABOUT LIGHTBOX
+// Toggles .open class to animate opacity + translateY.
+// Backdrop blur keeps carousel visible behind panel.
+// Closes via button, backdrop click, or Escape key.
+// ============================================================
+const lightbox = document.getElementById("lightbox");
+const lightboxBackdrop = document.getElementById("lightboxBackdrop");
+const lightboxClose = document.getElementById("lightboxClose");
+const aboutBtn = document.getElementById("aboutBtn");
+
+function openLightbox() {
+  lightbox.classList.add("open");
+}
+function closeLightbox() {
+  lightbox.classList.remove("open");
+}
+
+aboutBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  openLightbox();
+});
+lightboxClose.addEventListener("click", closeLightbox);
+lightboxBackdrop.addEventListener("click", closeLightbox);
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeLightbox();
 });
 
 // ============================================================
-// TICK BAR GENERATION
-// 42 ticks at varying heights evoke a waveform/film strip.
-// Generated in JS so count is easy to adjust.
-// ============================================================
-const tickBar = document.getElementById("tickBar");
-for (let i = 0; i < 42; i++) {
-  const t = document.createElement("div");
-  t.className = "tick";
-  tickBar.appendChild(t);
-}
-
-// ============================================================
-// EDGE-DRAG PAN
-// When mouse is in the outer 15% of the viewport width, the
-// strip slowly translates so slices beyond the visible area
-// can be reached. Lerp keeps the motion smooth and inertial.
-// Constraint: strip can't slide so far that it exposes void.
+// EDGE-PAN
+// When the mouse enters the outer 15% of the viewport on
+// either side, the strip slowly translates to reveal slices
+// beyond the visible edge. The strip starts at translateX(0)
+// which — combined with justify-content:center in CSS — means
+// it is already perfectly centred on load with no JS needed.
+// Edge-pan offsets from 0 in either direction.
+//
+// Design choice: using CSS centering (not JS) for the initial
+// position means it's correct even before any script runs,
+// avoiding a flash-of-misaligned-strip on slow connections.
 // ============================================================
 const slices = document.getElementById("slices");
 let stripX = 0;
 let targetX = 0;
 
 document.addEventListener("mousemove", (e) => {
+  if (lightbox.classList.contains("open")) return;
+
   const vw = window.innerWidth;
   const ratio = e.clientX / vw;
   const zone = 0.15;
-  const maxPan = 160;
+  const maxPan = 120;
 
   if (ratio < zone) {
     targetX = ((zone - ratio) / zone) * maxPan;
@@ -79,11 +105,14 @@ document.addEventListener("mousemove", (e) => {
   requestAnimationFrame(animateStrip);
 })();
 
+window.addEventListener("resize", () => {
+  targetX = 0;
+});
+
 // ============================================================
 // IMAGE PRELOAD
-// Pulls each slice's background-image URL and preloads it
-// before first hover, preventing a flash-of-no-image during
-// the expand transition.
+// Preloads background images before first hover to prevent
+// a flash-of-no-image during the expand transition.
 // ============================================================
 document.querySelectorAll(".slice").forEach((slice) => {
   const bg = slice.style.backgroundImage;

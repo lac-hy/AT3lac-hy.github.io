@@ -3,21 +3,62 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Interactive Scrolling Gallery</title>
+    <title>Interactive Media AT3</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div id="cursor-dot"></div>
     <div id="cursor-ring"></div>
 
-    <!-- HEADER: logo left, tick bar centre, about right -->
     <header>
       <div class="logo">Interactive Media AT3</div>
-      <div class="tick-bar" id="tickBar" aria-hidden="true"></div>
-      <nav><a href="#" class="nav-link">About</a></nav>
+      <nav><a href="#" class="nav-link" id="aboutBtn">About</a></nav>
     </header>
 
-    <!-- CAROUSEL: absolutely centred in viewport -->
+    <!-- ABOUT LIGHTBOX -->
+    <div
+      class="lightbox"
+      id="lightbox"
+      aria-modal="true"
+      role="dialog"
+      aria-label="About"
+    >
+      <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+      <div class="lightbox-panel">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Close">
+          ✕
+        </button>
+        <div class="lightbox-content">
+          <p class="lightbox-label">About</p>
+          <h2 class="lightbox-heading">Experimental<br />Hover Portfolio</h2>
+          <p class="lightbox-body">
+            I created this website for my Assignment 3 in Interactive Media 1.
+            My chosen action was Hover, and it was implemented in an
+            experimental
+          </p>
+          <div class="lightbox-meta">
+            <div>
+              <span class="meta-label">Course</span>
+              <span class="meta-value">Interactive Media Design</span>
+            </div>
+            <div>
+              <span class="meta-label">Interaction</span>
+              <span class="meta-value">Hover</span>
+            </div>
+            <div>
+              <span class="meta-label">Context</span>
+              <span class="meta-value">Artistic Portfolio</span>
+            </div>
+            <div>
+              <span class="meta-label">Year</span>
+              <span class="meta-value">2026</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CAROUSEL -->
     <div class="stage">
       <div class="slices" id="slices">
         <div
@@ -149,7 +190,6 @@
       </div>
     </div>
 
-    <!-- FOOTER: bottom-left info, bottom-right links -->
     <footer>
       <div class="footer-left">
         <p>S4130666</p>

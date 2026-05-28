@@ -1,14 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Sans:wght@300;400&display=swap");
 
-/* ============================================================
-   CUSTOM PROPERTIES
-   --bg: #171717 matches the original site's theme-color exactly.
-   --slice-base: narrow resting width of each image column.
-   --slice-expanded: width on hover — wide enough to read the
-   image clearly without dominating the full viewport.
-   --transition: fast-out-slow-in easing feels physical, like
-   a drawer being pulled open then decelerating naturally.
-============================================================ */
 :root {
   --bg: #171717;
   --text: #e8e6e1;
@@ -23,13 +14,6 @@
   --font-ui: "Instrument Sans", sans-serif;
 }
 
-/* ============================================================
-   RESET
-   overflow:hidden on html/body locks the layout to one
-   viewport — no scrolling, no document flow surprises.
-   cursor:none removes the system cursor globally; our custom
-   JS cursor replaces it everywhere.
-============================================================ */
 *,
 *::before,
 *::after {
@@ -52,11 +36,11 @@ body {
 
 /* ============================================================
    CUSTOM CURSOR
-   Outer ring lags behind via lerp in script.js (factor 0.1).
-   Inner dot snaps to exact mouse position every frame.
-   This weighted dual-layer cursor is a signature of premium
-   creative developer portfolios — it rewards mouse movement
-   with a tactile, physical sensation.
+   Two-layer system: dot snaps instantly to mouse position,
+   ring lags behind via lerp (factor 0.1 in script.js).
+   The physical lag makes the cursor feel weighted — a tactile
+   signature common in high-end creative portfolios.
+   Expands on interactive elements to signal affordance.
 ============================================================ */
 #cursor-dot {
   position: fixed;
@@ -94,9 +78,11 @@ body {
 
 /* ============================================================
    HEADER
-   Fixed to the top, full width. Three children — logo, tick
-   bar, nav — laid out with space-between. z-index:100 keeps
-   it above the image stage at all times.
+   Fixed top bar. Logo left, single nav link right.
+   Tick bar has been removed — it added visual noise without
+   contributing to the interaction or content hierarchy.
+   Clean two-element header better suits a student portfolio
+   context where clarity of attribution matters.
 ============================================================ */
 header {
   position: fixed;
@@ -111,15 +97,9 @@ header {
   z-index: 100;
 }
 
-/* ============================================================
-   LOGO
-   Bebas Neue replicates the original's heavy compressed
-   wordmark. letter-spacing:0.03em prevents the letters from
-   feeling too tight at large sizes.
-============================================================ */
 .logo {
   font-family: var(--font-display);
-  font-size: 40px;
+  font-size: 36px;
   line-height: 1;
   letter-spacing: 0.03em;
   color: var(--text);
@@ -128,40 +108,11 @@ header {
 }
 
 /* ============================================================
-   TICK BAR
-   Decorative vertical marks evoking a film strip or waveform.
-   Alternating heights create visual rhythm. Generated in JS
-   so count can be adjusted without touching HTML.
-   Centered between logo and nav by flexbox space-between.
-============================================================ */
-.tick-bar {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-}
-
-.tick {
-  width: 1.5px;
-  background: var(--text-dim);
-  border-radius: 1px;
-}
-
-.tick:nth-child(odd) {
-  height: 16px;
-}
-.tick:nth-child(even) {
-  height: 9px;
-}
-.tick:nth-child(5n) {
-  height: 24px;
-  background: #666;
-}
-
-/* ============================================================
-   NAV
-   Single "ABOUT" link with underline. pointer-events:all
-   re-enables clicks after the parent's pointer-events:none
-   (not set here, but consistent with original pattern).
+   NAV LINK
+   "ABOUT" with underline. pointer-events re-enabled so the
+   click fires despite the parent's stacking context.
+   The underline offset (4px) gives breathing room between
+   text baseline and the decorative line.
 ============================================================ */
 .nav-link {
   font-size: 12px;
@@ -180,54 +131,44 @@ header {
 }
 
 /* ============================================================
-   STAGE — THE KEY FIX
-   This wrapper sits between header and footer using position
-   fixed with explicit top/bottom offsets matching the header
-   and footer heights. display:flex + align-items:center
-   perfectly centres the slice strip vertically in the
-   remaining space. This is more reliable than using main
-   with inset:0 because it explicitly carves out the correct
-   region rather than relying on z-index stacking.
+   STAGE — CAROUSEL CENTERING
+   Sits between header and footer using explicit top/bottom
+   offsets matching their heights. align-items:center places
+   the slice strip exactly in the middle of the remaining
+   viewport space — not the full viewport (which would look
+   low due to the header's visual weight pulling the eye up).
 ============================================================ */
 .stage {
   position: fixed;
-  top: var(--header-h);
-  bottom: var(--footer-h);
+  top: 0;
+  bottom: 0;
   left: 0;
   right: 0;
   display: flex;
-  align-items: center; /* vertical centre ✓ */
+  align-items: center;
   justify-content: center;
   z-index: 1;
+  overflow: hidden;
 }
 
-/* ============================================================
-   SLICES STRIP
-   Horizontal flex row. Width:100vw + overflow:visible lets
-   the strip extend edge to edge, matching the original's
-   bleeding strip. The JS handles translateX for the
-   edge-drag pan effect — overflow:visible is essential for
-   this to show beyond the container bounds.
-============================================================ */
 .slices {
   display: flex;
   align-items: stretch;
   gap: var(--gap);
   height: 280px;
   width: 100vw;
-  overflow: visible;
   flex-shrink: 0;
+  margin: 0 auto;
 }
 
 /* ============================================================
-   INDIVIDUAL SLICE
-   flex:0 1 var(--slice-base) — will shrink but not grow by
-   default. background-size:cover fills the slice at any width;
-   background-position:center keeps the subject framed as
-   the slice expands, revealing more of the image naturally.
-   grayscale(1) brightness(0.6) matches the original's dark
-   monochrome treatment — colour would compete with the
-   interaction rather than support it.
+   SLICE — BASE STATE
+   Narrow vertical columns, grayscale + darkened.
+   background-size:cover + background-position:center means
+   as a slice expands, more image is naturally revealed —
+   an "unmasking" effect requiring no JS repositioning.
+   The monochrome treatment keeps resting state calm so the
+   colour reveal on hover feels like a reward.
 ============================================================ */
 .slice {
   position: relative;
@@ -244,11 +185,15 @@ header {
 }
 
 /* ============================================================
-   HOVER STATE
-   flex:0 0 var(--slice-expanded) — stops shrinking so this
-   slice holds its expanded width while siblings compress.
-   brightness bumps to 0.88 to "spotlight" the active slice.
-   Siblings dim via :has() — no JS needed for this effect.
+   SLICE — HOVER STATE
+   Two things happen simultaneously:
+   1. flex-basis expands to --slice-expanded (320px), pushing
+      siblings to compress via their flex-shrink:1 default.
+   2. filter switches from grayscale to full colour at full
+      brightness — the colour reveal is the primary feedback
+      signal, rewarding the hover gesture with visual richness.
+   Siblings dim further (brightness 0.3) to create contrast
+   and focus attention on the active slice.
 ============================================================ */
 .slice:hover {
   flex: 0 0 var(--slice-expanded);
@@ -261,9 +206,9 @@ header {
 
 /* ============================================================
    SLICE LABEL
-   Project name fades up from below on hover. transition-delay
-   0.18s waits for the slice to partially open before showing
-   text — avoids the label appearing in a still-narrow column.
+   Fades up after a 0.18s delay — waits for the slice to
+   partially open before the label appears, so it's never
+   visible in a still-narrow column where it would be clipped.
 ============================================================ */
 .slice::after {
   content: attr(data-label);
@@ -274,7 +219,7 @@ header {
   font-weight: 400;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(232, 230, 225, 0.75);
+  color: rgba(232, 230, 225, 0.85);
   white-space: nowrap;
   opacity: 0;
   transform: translateY(5px);
@@ -291,10 +236,9 @@ header {
 
 /* ============================================================
    FOOTER
-   Fixed to the bottom, same height as --footer-h. Two-corner
-   layout: role/availability bottom-left, social links bottom-
-   right. This editorial convention (borrowed from print) frames
-   the viewport without adding visual weight to the centre.
+   Fixed two-corner layout. Bottom-left: student ID + name.
+   Bottom-right: social/contact links. Borrowed from editorial
+   print design — margins that frame without adding weight.
 ============================================================ */
 footer {
   position: fixed;
@@ -324,16 +268,172 @@ footer {
 .footer-right {
   text-align: right;
 }
-
 .footer-right a:hover {
   opacity: 0.5;
 }
 
 /* ============================================================
-   ENTRANCE ANIMATION
-   Staggered fade-up on page load. Header and footer appear
-   first to establish context, then the slice strip reveals
-   itself — the centrepiece arrives last, maximising impact.
+   LIGHTBOX
+   Full-viewport overlay triggered by clicking "About".
+   Two layers: a semi-transparent backdrop (blur + dark tint)
+   and a centred panel that slides up from slightly below.
+
+   The backdrop uses backdrop-filter:blur(12px) to softly
+   obscure the slice carousel behind it — the images are still
+   faintly visible, maintaining spatial context (the user never
+   feels they've left the page). This is the lightbox pattern:
+   content on top, origin context below.
+
+   opacity + pointer-events toggling (rather than display:none)
+   allows CSS transitions to animate both open and close states.
+   display:none would cut the transition off immediately.
+
+   z-index: 200 sits above header (100) and stage (1).
+============================================================ */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.lightbox.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Backdrop: blurred dark overlay. Clicking it closes the modal. */
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ============================================================
+   LIGHTBOX PANEL
+   The white-on-dark card. Slides up 24px on open via
+   translateY transition — gives the panel a sense of emerging
+   from the page rather than abruptly appearing.
+   max-width:560px keeps it readable without sprawling across
+   the viewport; padding:52px gives generous internal breathing
+   room consistent with the minimal aesthetic.
+   border: 1px solid with low opacity adds definition without
+   a harsh edge against the blurred backdrop.
+============================================================ */
+.lightbox-panel {
+  position: relative;
+  z-index: 1;
+  background: #1e1e1e;
+  border: 1px solid rgba(232, 230, 225, 0.1);
+  border-radius: 4px;
+  width: 90%;
+  max-width: 560px;
+  padding: 52px;
+  transform: translateY(24px);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lightbox.open .lightbox-panel {
+  transform: translateY(0);
+}
+
+/* Close button — top right corner of panel */
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 22px;
+  background: none;
+  border: none;
+  color: rgba(232, 230, 225, 0.45);
+  font-size: 16px;
+  line-height: 1;
+  padding: 4px 6px;
+  transition: color 0.2s;
+}
+
+.lightbox-close:hover {
+  color: var(--text);
+}
+
+.lightbox-label {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 20px;
+}
+
+.lightbox-heading {
+  font-family: var(--font-display);
+  font-size: 48px;
+  line-height: 1.05;
+  letter-spacing: 0.03em;
+  color: var(--text);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+
+.lightbox-body {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.75;
+  color: rgba(232, 230, 225, 0.65);
+  margin-bottom: 36px;
+}
+
+.lightbox-body em {
+  color: var(--text);
+  font-style: normal;
+}
+
+/* ============================================================
+   META GRID
+   Four key:value pairs in a 2-column grid. Communicates
+   assignment context clearly without a wall of prose.
+   The label/value typographic split (dim uppercase vs normal
+   weight) creates hierarchy within a small space.
+============================================================ */
+.lightbox-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 24px;
+  border-top: 1px solid rgba(232, 230, 225, 0.08);
+  padding-top: 28px;
+}
+
+.lightbox-meta > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.meta-label {
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.meta-value {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--text);
+  letter-spacing: 0.02em;
+}
+
+/* ============================================================
+   ENTRANCE ANIMATIONS
+   Staggered fade-up on page load. Header and footer first
+   (context), then the carousel (the main event).
 ============================================================ */
 @keyframes fadeUp {
   from {
@@ -356,12 +456,6 @@ footer {
   animation: fadeUp 0.6s ease both 0.1s;
 }
 
-/* ============================================================
-   RESPONSIVE
-   At narrow viewports the slices compress too much to be
-   legible. Reduce slice-base, expanded width, and strip height.
-   The core hover interaction still functions at this scale.
-============================================================ */
 @media (max-width: 768px) {
   :root {
     --slice-base: 28px;
@@ -371,9 +465,12 @@ footer {
     height: 200px;
   }
   .logo {
-    font-size: 28px;
+    font-size: 22px;
   }
-  .tick-bar {
-    display: none;
+  .lightbox-panel {
+    padding: 36px 28px;
+  }
+  .lightbox-heading {
+    font-size: 36px;
   }
 }
