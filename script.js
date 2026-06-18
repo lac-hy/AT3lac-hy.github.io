@@ -17,6 +17,9 @@ document.addEventListener("mousemove", (e) => {
   dot.style.top = mouse.y + "px";
 });
 
+// Linear interpolation function used to smoothly animate values.
+// Rather than instantly moving the cursor ring, interpolation
+// creates a softer and more responsive feeling interaction.
 function lerp(a, b, t) {
   return a + (b - a) * t;
 }
@@ -48,6 +51,9 @@ const lightboxBackdrop = document.getElementById("lightboxBackdrop");
 const lightboxClose = document.getElementById("lightboxClose");
 const aboutBtn = document.getElementById("aboutBtn");
 
+// Applies visual feedback to interactive elements.
+// When users hover over clickable content, the cursor expands,
+// providing a clear indication that the element can be interacted with.
 function openLightbox() {
   lightbox.classList.add("open");
 }
@@ -82,6 +88,10 @@ const slices = document.getElementById("slices");
 let stripX = 0;
 let targetX = 0;
 
+// Edge-pan interaction allows users to reveal additional projects
+// by moving their cursor towards either side of the viewport.
+// This creates the impression of a larger gallery existing beyond
+// the visible screen space and encourages exploration.
 document.addEventListener("mousemove", (e) => {
   if (lightbox.classList.contains("open")) return;
 
@@ -117,14 +127,10 @@ document.querySelectorAll(".slice[data-label-color]").forEach((slice) => {
   slice.style.setProperty("--label-color", slice.dataset.labelColor);
 });
 
-// ============================================================
-// PROJECT DESCRIPTIONS
-// A single shared div is reused for all slice descriptions —
-// swapping its text content on each mouseenter is cheaper than
-// creating/destroying elements on every hover.
-// The description fades in below the strip and fades out when
-// the mouse leaves, giving context without cluttering the UI.
-// ============================================================
+// A single description container is dynamically updated based on
+// the currently hovered project. Reusing one element improves
+// performance compared to creating multiple description panels.
+
 const descEl = document.createElement("div");
 descEl.id = "project-description";
 document.body.appendChild(descEl);
@@ -139,11 +145,10 @@ document.querySelectorAll(".slice[data-description]").forEach((slice) => {
   });
 });
 
-// ============================================================
-// IMAGE PRELOAD
-// Preloads background images before first hover to prevent
-// a flash-of-no-image during the expand transition.
-// ============================================================
+// Images are preloaded on page load to minimise visual delays
+// when a user hovers over a project for the first time.
+// This helps maintain a smooth and responsive interaction.
+
 document.querySelectorAll(".slice").forEach((slice) => {
   const bg = slice.style.backgroundImage;
   const match = bg.match(/url\(['"]?([^'")\s]+)['"]?\)/);

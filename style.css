@@ -34,14 +34,6 @@ body {
   font-weight: 300;
 }
 
-/* ============================================================
-   CUSTOM CURSOR
-   Two-layer system: dot snaps instantly to mouse position,
-   ring lags behind via lerp (factor 0.1 in script.js).
-   The physical lag makes the cursor feel weighted — a tactile
-   signature common in high-end creative portfolios.
-   Expands on interactive elements to signal affordance.
-============================================================ */
 #cursor-dot {
   position: fixed;
   width: 5px;
@@ -76,14 +68,13 @@ body {
   border-color: rgba(232, 230, 225, 0.18);
 }
 
-/* ============================================================
-   HEADER
+/*
    Fixed top bar. Logo left, single nav link right.
    Tick bar has been removed — it added visual noise without
    contributing to the interaction or content hierarchy.
    Clean two-element header better suits a student portfolio
    context where clarity of attribution matters.
-============================================================ */
+*/
 header {
   position: fixed;
   top: 0;
@@ -107,13 +98,12 @@ header {
   user-select: none;
 }
 
-/* ============================================================
-   NAV LINK
+/*
    "ABOUT" with underline. pointer-events re-enabled so the
    click fires despite the parent's stacking context.
    The underline offset (4px) gives breathing room between
    text baseline and the decorative line.
-============================================================ */
+ */
 .nav-link {
   font-size: 12px;
   font-weight: 400;
@@ -130,14 +120,13 @@ header {
   text-decoration-color: var(--text);
 }
 
-/* ============================================================
-   STAGE — CAROUSEL CENTERING
+/*
    Sits between header and footer using explicit top/bottom
    offsets matching their heights. align-items:center places
    the slice strip exactly in the middle of the remaining
    viewport space — not the full viewport (which would look
    low due to the header's visual weight pulling the eye up).
-============================================================ */
+ */
 .stage {
   position: fixed;
   top: 0;
@@ -161,7 +150,7 @@ header {
   margin: 0 auto;
 }
 
-/* ============================================================
+/*
    SLICE — BASE STATE
    Narrow vertical columns, grayscale + darkened.
    background-size:cover + background-position:center means
@@ -169,7 +158,7 @@ header {
    an "unmasking" effect requiring no JS repositioning.
    The monochrome treatment keeps resting state calm so the
    colour reveal on hover feels like a reward.
-============================================================ */
+*/
 .slice {
   position: relative;
   flex: 0 1 var(--slice-base);
@@ -184,17 +173,12 @@ header {
   overflow: hidden;
 }
 
-/* ============================================================
-   SLICE — HOVER STATE
-   Two things happen simultaneously:
-   1. flex-basis expands to --slice-expanded (320px), pushing
-      siblings to compress via their flex-shrink:1 default.
-   2. filter switches from grayscale to full colour at full
-      brightness — the colour reveal is the primary feedback
-      signal, rewarding the hover gesture with visual richness.
-   Siblings dim further (brightness 0.3) to create contrast
-   and focus attention on the active slice.
-============================================================ */
+/*
+The hover state serves as the primary interaction of the project.
+Expanding the image and restoring full colour creates a strong
+visual reward that encourages users to continue exploring the gallery.
+*/
+
 .slice:hover {
   flex: 0 0 var(--slice-expanded);
   filter: grayscale(0) brightness(1);
@@ -204,12 +188,11 @@ header {
   filter: grayscale(1) brightness(0.3);
 }
 
-/* ============================================================
-   SLICE LABEL
+/* 
    Fades up after a 0.18s delay — waits for the slice to
    partially open before the label appears, so it's never
    visible in a still-narrow column where it would be clipped.
-============================================================ */
+ */
 .slice::after {
   content: attr(data-label);
   position: absolute;
@@ -234,12 +217,11 @@ header {
   transform: translateY(0);
 }
 
-/* ============================================================
-   FOOTER
+/* 
    Fixed two-corner layout. Bottom-left: student ID + name.
    Bottom-right: social/contact links. Borrowed from editorial
    print design — margins that frame without adding weight.
-============================================================ */
+ */
 footer {
   position: fixed;
   bottom: 0;
@@ -272,14 +254,13 @@ footer {
   opacity: 0.5;
 }
 
-/* ============================================================
-   PROJECT DESCRIPTION BAR
+/* 
    Appears below the carousel on hover. Fixed position means
    it doesn't shift the layout when it fades in — important
    for a single-viewport design where any reflow would be
    jarring. The description sits just below the strip's bottom
    edge (calc centres it relative to the stage midpoint).
-============================================================ */
+ */
 #project-description {
   position: fixed;
   bottom: calc(var(--footer-h) + 100px);
@@ -306,8 +287,7 @@ footer {
   transform: translateY(0);
 }
 
-/* ============================================================
-   LIGHTBOX
+/* 
    Full-viewport overlay triggered by clicking "About".
    Two layers: a semi-transparent backdrop (blur + dark tint)
    and a centred panel that slides up from slightly below.
@@ -323,7 +303,7 @@ footer {
    display:none would cut the transition off immediately.
 
    z-index: 200 sits above header (100) and stage (1).
-============================================================ */
+ */
 .lightbox {
   position: fixed;
   inset: 0;
@@ -350,8 +330,7 @@ footer {
   -webkit-backdrop-filter: blur(12px);
 }
 
-/* ============================================================
-   LIGHTBOX PANEL
+/* 
    The white-on-dark card. Slides up 24px on open via
    translateY transition — gives the panel a sense of emerging
    from the page rather than abruptly appearing.
@@ -360,7 +339,7 @@ footer {
    room consistent with the minimal aesthetic.
    border: 1px solid with low opacity adds definition without
    a harsh edge against the blurred backdrop.
-============================================================ */
+ */
 .lightbox-panel {
   position: relative;
   z-index: 1;
@@ -428,13 +407,12 @@ footer {
   font-style: normal;
 }
 
-/* ============================================================
-   META GRID
+/*
    Four key:value pairs in a 2-column grid. Communicates
    assignment context clearly without a wall of prose.
    The label/value typographic split (dim uppercase vs normal
    weight) creates hierarchy within a small space.
-============================================================ */
+ */
 .lightbox-meta {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -464,11 +442,10 @@ footer {
   letter-spacing: 0.02em;
 }
 
-/* ============================================================
-   ENTRANCE ANIMATIONS
+/*
    Staggered fade-up on page load. Header and footer first
    (context), then the carousel (the main event).
-============================================================ */
+*/
 @keyframes fadeUp {
   from {
     opacity: 0;

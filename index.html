@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <!--
+Custom cursor system used to enhance the hover-focused experience.
+The cursor consists of a dot and trailing ring to create a more
+interactive and immersive interface that encourages exploration.
+-->
     <div id="cursor-dot"></div>
     <div id="cursor-ring"></div>
 
@@ -15,7 +20,12 @@
       <nav><a href="#" class="nav-link" id="aboutBtn">About</a></nav>
     </header>
 
-    <!-- ABOUT LIGHTBOX -->
+    <!--
+Modal lightbox used to provide contextual information about the
+project without forcing the user to leave the current page.
+This supports a seamless browsing experience while maintaining
+focus on the portfolio content.
+-->
     <div
       class="lightbox"
       id="lightbox"
@@ -61,7 +71,12 @@
       </div>
     </div>
 
-    <!-- CAROUSEL -->
+    <!--
+The portfolio content is displayed as an experimental horizontal
+image gallery. Each slice represents a project and expands when
+hovered over, reinforcing the assignment's focus on hover-based
+interaction design.
+-->
     <div class="stage">
       <div class="slices" id="slices">
         <div
@@ -94,9 +109,7 @@
           data-description="For this RMIT assignment, I chose to do a study of the Fall of The Berlin Wall in 1989. This was
                             for Narrative Theory + Prac class, the concept I created was an interactive timeline website
                             that recalled the key moments of the events."
-          style="
-            background-image: url(&quot;https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?w=900&q=80&quot;);
-          "
+          style="background-image: url(images/berlin.png)"
         ></div>
         <div
           class="slice"
@@ -158,48 +171,49 @@
         <div
           class="slice"
           data-label="D.I.C.E"
-          data-description="DICE represents Design, Innovation, Creativity, Education."
+          data-description="DICE represents Design, Innovation, Creativity, Education. DICE is a education RND platform that
+                            I have been above of creating that fills a gap in the market of design education. It's purpose is to
+                            teach kids about creative thinking and prepare them for tertiary education."
           style="background-image: url(images/dice.png)"
         ></div>
         <div
           class="slice"
           data-label="Sketches"
           data-label-color="#353535"
-          data-description="test12"
+          data-description="These sketches represent my design creativity throughout the last few years, and my attempts to
+                            start learning how to draw. These were completed in Procreate."
           style="background-image: url(images/sketches.jpg)"
         ></div>
         <div
           class="slice"
           data-label="Making Design Real"
+          data-description="biovate was originally a RMIT assignment project, an AI image generation app that blended human
+                            emotion with prompting. I took the project further by experimenting with creating mockups, in which I
+                            had photographed this wall and put my fake advert design onto it."
           style="background-image: url(images/makingdesignreal.png)"
         ></div>
         <div
           class="slice"
           data-label="Japan Trip Photography"
-          data-label-color="#0000FF"
-          data-description="test13"
+          data-label-color="#FFF200"
+          data-description="This was my favourite photo taken on my most recent snow trip to Japan. In which I was praciticing some
+                            action photography and ended up catching this awesome shot of a random rider."
           style="background-image: url(images/memory2.jpg)"
         ></div>
         <div
           class="slice"
-          data-label="Light"
-          style="
-            background-image: url(&quot;https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=900&q=80&quot;);
-          "
+          data-label="New Zealand Trip"
+          data-description="The New Zealand Trip was a significant moment for me, as it was the first time I was able to travel
+                            overseas with my family, especially after a hard year of uni, it is a time I cherish deeply."
+          style="background-image: url(images/nz.png)"
         ></div>
         <div
           class="slice"
-          data-label="Studio"
-          style="
-            background-image: url(&quot;https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=900&q=80&quot;);
-          "
-        ></div>
-        <div
-          class="slice"
-          data-label="Minimal"
-          style="
-            background-image: url(&quot;https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&q=80&quot;);
-          "
+          data-label="Abstract 3D Design"
+          data-description="This is the snapshot from the most recent 3D render I made, apart of a personal project. A render that
+                            took over 15 hours to make and atleast 2 hours to render it represents how far I have come in my design
+                            journey and ability."
+          style="background-image: url(images/abstract.png)"
         ></div>
       </div>
     </div>
